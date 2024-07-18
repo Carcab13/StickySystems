@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification</title>
+    <link rel="Stylesheet" href="verifacation.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@483&family=Poetsen+One&display=swap" rel="stylesheet">
+<!-- Standard Favicon -->
+<link rel="icon" type="image/x-icon" href="padlock-icon-in-flat-style-clip-art-free-png.webp">
+</head>
+<body>
+    <header class="banner">
+        <div class="logo-container left">
+            <img src="padlock-icon-in-flat-style-clip-art-free-png.webp" alt="Lock" class="logo">
+        </div>
+        <div class="title-container">
+            <span class="site-title">Verification</span>
+        </div>
+        <div class="logo-container right">
+            <img src="padlock-icon-in-flat-style-clip-art-free-png.webp" alt="Lock" class="logo">
+        </div>
+    </header>
+<div class="center" id="content">
+    <div class="form-container">
+        <h1>Enter Code to get access.</h1>
+        <form id="codeForm">
+            <input class="code-input" type="text" id="codeInput" placeholder="Enter code" required>
+            <button class="submit" type="submit">Submit</button>
+        </form>
+            <p id="errorMessage" style="color: red; display: none;">Incorrect code. Please try again.</p>
+    </div>
+</div>
+
+    <script>
+        const correctCode = "082713"; // Replace with the correct code
+        document.getElementById('codeForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting the traditional way
+
+            const enteredCode = document.getElementById('codeInput').value;
+
+            if (enteredCode === correctCode) {
+                const content = document.getElementById('content');
+                content.classList.add('slide-out-right');
+                
+                // Redirect after the animation completes
+                setTimeout(() => {
+                    window.location.href = 'Presentations.html'; // Replace with the target file
+                }, 1000); // Match the duration of the fade-out animation
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
