@@ -34,25 +34,54 @@
     </div>
 </div>
 
-    <script>
-        const correctCode = "082713"; // Replace with the correct code
-        document.getElementById('codeForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form from submitting the traditional way
 
-            const enteredCode = document.getElementById('codeInput').value;
+<script>
+const correctCode = "082713"; // Replace with the correct code
 
-            if (enteredCode === correctCode) {
-                const content = document.getElementById('content');
-                content.classList.add('slide-out-right');
-                
-                // Redirect after the animation completes
-                setTimeout(() => {
-                    window.location.href = 'Presentations.html'; // Replace with the target file
-                }, 1000); // Match the duration of the fade-out animation
-            } else {
-                document.getElementById('errorMessage').style.display = 'block';
-            }
-        });
+document.getElementById('codeForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent form from submitting the traditional way
+
+  const enteredCode = document.getElementById('codeInput').value;
+
+  if (enteredCode === correctCode) {
+    let sessionId = getSessionId();
+
+    if (!sessionId) {
+      sessionId = createSessionId();
+      setSessionId(sessionId);
+    }
+
+    redirectWithSession(sessionId);
+  } else {
+    document.getElementById('errorMessage').style.display = 'block';
+  }
+});
+
+function getSessionId() {
+  return sessionStorage.getItem('session_id'); // Retrieve the session ID from sessionStorage
+}
+
+function setSessionId(sessionId) {
+  sessionStorage.setItem('session_id', sessionId); // Store the session ID in sessionStorage
+}
+
+function createSessionId() {
+  return 'sess-' + Math.random().toString(36).substr(2, 9); // Generate a simple random session ID
+}
+
+function redirectWithSession(sessionId) {
+  const content = document.getElementById('content');
+  content.classList.add('slide-out-right');
+
+  // Redirect after the animation completes
+  setTimeout(() => {
+    window.location.href = `Presentations.html?session_id=${sessionId}`; // Append the session ID to the URL
+  }, 1000); // Match the duration of the fade-out animation
+}
+
+function redirectToAlternateSite() {
+  window.location.href = 'https://google.com'; // Replace with the alternate site URL
+}
     </script>
 </body>
 </html>

@@ -26,5 +26,26 @@
         <button class="button">Associate Handbook</button>
     </a>
     </div>
+    <script>
+        function getSessionIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('session_id');
+  }
+
+  function redirectToAlternateSite() {
+    window.location.href = 'https:google.com'; // Replace with the alternate site URL
+  }
+
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const sessionId = getSessionIdFromUrl();
+
+    if (!sessionId) {
+      redirectToAlternateSite();
+    } else {
+      // Optionally, add logic here to validate the session ID
+      console.log('Valid session ID:', sessionId);
+    }
+  });
+    </script>
 </body>
 </html>
