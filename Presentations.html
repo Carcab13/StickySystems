@@ -27,25 +27,62 @@
     </a>
     </div>
     <script>
-        function getSessionIdFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('session_id');
-  }
-
-  function redirectToAlternateSite() {
-    window.location.href = 'https:google.com'; // Replace with the alternate site URL
-  }
-
-  document.addEventListener('DOMContentLoaded', (event) => {
-    const sessionId = getSessionIdFromUrl();
-
-    if (!sessionId) {
-      redirectToAlternateSite();
-    } else {
-      // Optionally, add logic here to validate the session ID
-      console.log('Valid session ID:', sessionId);
+// Retrieve session ID from URL
+function getSessionIdFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('session_id');
     }
-  });
+
+    // Redirect to an alternate site
+    function redirectToAlternateSite() {
+      window.location.href = 'https://google.com'; // Replace with the alternate site URL
+    }
+
+    // Retrieve session ID from sessionStorage
+    function getSessionId() {
+      return sessionStorage.getItem('session_id');
+    }
+
+    // Store session ID in sessionStorage
+    function setSessionId(sessionId) {
+      sessionStorage.setItem('session_id', sessionId);
+    }
+
+    // Create a new session ID
+    function createSessionId() {
+      return 'sess-' + Math.random().toString(36).substr(2, 9); // Generate a simple random session ID
+    }
+
+    // Redirect with session ID
+    function redirectWithSession(sessionId, url) {
+      window.location.href = `${url}?session_id=${sessionId}`; // Append the session ID to the URL
+    }
+
+    // Event listener for button click
+    document.getElementById('handbookLink').addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default link behavior
+
+      let sessionId = getSessionId();
+
+      if (!sessionId) {
+        sessionId = createSessionId();
+        setSessionId(sessionId);
+      }
+
+      redirectWithSession(sessionId, 'https://Carcab13.github.io/SS-P1-AH/');
+    });
+
+    // Check session ID on page load
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const sessionId = getSessionIdFromUrl();
+
+      if (!sessionId) {
+        redirectToAlternateSite();
+      } else {
+        // Optionally, add logic here to validate the session ID
+        console.log('Valid session ID:', sessionId);
+      }
+    });
     </script>
 </body>
 </html>
